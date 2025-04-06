@@ -305,7 +305,55 @@ namespace WeightedDirectedGraphs
                 visited = [];
             }
         }
+        public bool BellmanFordAlgorithm()
+        {
+            PathfindingInfo pathfindingInfo = new PathfindingInfo(new Dictionary<Vertex<T>, float>(), new Dictionary<Vertex<T>, Vertex<T>?>());
 
+            for(int i = 0; i < vertices.Count; i++)
+            {
+                pathfindingInfo.distance[vertices[i]] = float.PositiveInfinity;
+
+            }
+            for(int i = 0; i < vertices.Count; i++)
+            {
+                for (int j = 0; j < vertices[i].NeighborCount; j++)
+                {
+                    pathfindingInfo.distance[vertices[i].Neighbors[j].StartingPoint] = 0;
+
+                }
+            }
+            for(int i = 0; i < vertices.Count; i++)
+            {
+                
+
+                for (int j = 0; j < vertices[i].NeighborCount; j++)
+                {
+                    float tentDistance = vertices[i].Neighbors[j].Distance + pathfindingInfo.distance[vertices[i].Neighbors[j].StartingPoint];
+                    if (tentDistance < pathfindingInfo.distance[vertices[i].Neighbors[j].EndingPoint])
+                    {
+                        pathfindingInfo.distance[vertices[i].Neighbors[j].EndingPoint] = tentDistance;
+                        pathfindingInfo.previousVertex[vertices[i].Neighbors[j].EndingPoint] = vertices[i].Neighbors[j].StartingPoint;
+                    }
+                }
+
+            }
+
+            for(int i = 0; i < vertices.Count; i++)
+            {
+                for (int j = 0; j < vertices[i].NeighborCount; j++)
+                {
+                    //pathfindingInfo.distance[vertices[i].Neighbors[j].StartingPoint] = 0;
+                    float tentDistance = vertices[i].Neighbors[j].Distance + pathfindingInfo.distance[vertices[i].Neighbors[j].StartingPoint];
+                    if (tentDistance < pathfindingInfo.distance[vertices[i].Neighbors[j].EndingPoint])
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+
+        }
         public List<Vertex<T>>? DijkstraAlgorithm(Vertex<T> start, Vertex<T> end)
         {
             if (start == null || end == null) return null;
@@ -429,35 +477,7 @@ namespace WeightedDirectedGraphs
             return path;
         }
 
-        public bool BellmanFordAlgorithm()
-        {
-            Queue<Vertex<T>> vQueue = new Queue<Vertex<T>>();
-            for (int i = 0; i < vertices.Count; i++)
-            {
-                vQueue.Enqueue(vertices[i]);
-            }
 
-            while (vQueue.Count > 0)
-            {
-
-            }
-
-        }
-
-
-        private bool isNegativeCycle() //make
-        {
-            if(isNegativeCycle() == true)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-            
-            return true;
-        }
 
 
 

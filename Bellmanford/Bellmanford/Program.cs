@@ -97,36 +97,49 @@ namespace WeightedDirectedGraphs
             //List<Vertex<int>>? list2 = graph.PathFindDepthFirst(graph.Search(1), graph.Search(5));
             //List<Vertex<int>>? list3 = graph.DijkstraAlgorithm(graph.Search(1), graph.Search(5));
 
-            Graph<Point> graph = new Graph<Point>();
-            for(int i = 0; i < 20; i++)
-            {
-                for(int j = 0; j < 20; j++)
-                {
-                    graph.AddVertex(new Point(i, j));
+            //Graph<Point> graph = new Graph<Point>();
+            //for(int i = 0; i < 20; i++)
+            //{
+            //    for(int j = 0; j < 20; j++)
+            //    {
+            //        graph.AddVertex(new Point(i, j));
 
-                }
-            }
-            Random random = new Random();
-            
-            for(int i = 0; i < 20; i++)
-            {
-                for(int j = 0; j < 20; j++)
-                {
-                    graph.AddUndirectedEdge(new Point(i, j), new Point(i + 1, j), 1);
-                    graph.AddUndirectedEdge(new Point(i, j), new Point(i, j + 1), 1);
-                    graph.AddUndirectedEdge(new Point(i, j), new Point(i + 1, j + 1), (float)Math.Sqrt(2));
-                    graph.AddUndirectedEdge(new Point(i, j), new Point(i + 1, j - 1), (float)Math.Sqrt(2));
-                }
-            }
-            
-            int x1 = random.Next(0, 20);
-            int y1 = random.Next(0, 20);
-            int x2 = random.Next(0, 20);
-            int y2 = random.Next(0, 20);
-            var list5 = graph.DijkstraAlgorithm(graph.Search(new Point(x1, y1))!, graph.Search(new Point(x2,y2))!);
-            var list4 = graph.AStarAlgorithm(graph.Search(new Point(x1, y1))!, graph.Search(new Point(x2, y2))!, graph.Euclidean);
+            //    }
+            //}
+            //Random random = new Random();
 
-            Console.WriteLine("Path Cost: " + graph.GetDistance(list4!));
+            //for(int i = 0; i < 20; i++)
+            //{
+            //    for(int j = 0; j < 20; j++)
+            //    {
+            //        graph.AddUndirectedEdge(new Point(i, j), new Point(i + 1, j), 1);
+            //        graph.AddUndirectedEdge(new Point(i, j), new Point(i, j + 1), 1);
+            //        graph.AddUndirectedEdge(new Point(i, j), new Point(i + 1, j + 1), (float)Math.Sqrt(2));
+            //        graph.AddUndirectedEdge(new Point(i, j), new Point(i + 1, j - 1), (float)Math.Sqrt(2));
+            //    }
+            //}
+
+            //int x1 = random.Next(0, 20);
+            //int y1 = random.Next(0, 20);
+            //int x2 = random.Next(0, 20);
+            //int y2 = random.Next(0, 20);
+            //var list5 = graph.DijkstraAlgorithm(graph.Search(new Point(x1, y1))!, graph.Search(new Point(x2,y2))!);
+            //var list4 = graph.AStarAlgorithm(graph.Search(new Point(x1, y1))!, graph.Search(new Point(x2, y2))!, graph.Euclidean);
+
+            //Console.WriteLine("Path Cost: " + graph.GetDistance(list4!));
+
+            Graph<int> graph = new Graph<int>();
+
+            graph.AddVertex(1);
+            graph.AddVertex(2);
+            graph.AddVertex(3);
+
+            graph.AddEdge(1, 2, 200);
+            graph.AddEdge(2, 3, -100);
+            graph.AddEdge(3, 1, 100);
+
+            Console.WriteLine(graph.BellmanFordAlgorithm());
+
             ;
 
             //;
